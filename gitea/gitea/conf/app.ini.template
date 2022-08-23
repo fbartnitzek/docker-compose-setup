@@ -1,6 +1,6 @@
 APP_NAME = Gitea: Git Server
 RUN_MODE = prod
-RUN_USER = <RUN_USER>
+RUN_USER = <GITEA_RUN_USER>
 
 [repository]
 ROOT = /data/git/repositories
@@ -13,24 +13,24 @@ TEMP_PATH = /data/gitea/uploads
 
 [server]
 APP_DATA_PATH    = /data/gitea
-SSH_DOMAIN       = git.<MY_DOMAIN>
+SSH_DOMAIN       = git.<DOMAIN>
 HTTP_PORT        = 3000
-ROOT_URL         = https://git.<MY_DOMAIN>/
+ROOT_URL         = https://git.<DOMAIN>/
 DISABLE_SSH      = false
 SSH_PORT         = 22
 LFS_CONTENT_PATH = /data/git/lfs
-DOMAIN           = git.<MY_DOMAIN>
+DOMAIN           = git.<DOMAIN>
 LFS_START_SERVER = true
-LFS_JWT_SECRET   = <SOME_SECRET>
+LFS_JWT_SECRET   = <GITEA_LFS_SECRET>
 OFFLINE_MODE     = false
 
 [database]
 PATH     = /data/gitea/gitea.db
 DB_TYPE  = postgres
-HOST     = <DB_HOST>
-NAME     = <DB_NAME>
-USER     = <DB_USER>
-PASSWD   = <DB_PASSWORD>
+HOST     = <GITEA_DB_HOST>
+NAME     = <GITEA_DB_NAME>
+USER     = <GITEA_DB_USER>
+PASSWD   = <GITEA_DB_PASSWORD>
 SSL_MODE = disable
 
 [indexer]
@@ -61,8 +61,8 @@ LEVEL     = Info
 
 [security]
 INSTALL_LOCK   = true
-SECRET_KEY     = <SECRET_KEY>
-INTERNAL_TOKEN = <TOKEN>
+SECRET_KEY     = <GITEA_SECRET_KEY>
+INTERNAL_TOKEN = <GITEA_TOKEN>
 
 [service]
 DISABLE_REGISTRATION              = true
@@ -84,5 +84,5 @@ ENABLE_OPENID_SIGNIN = true
 ENABLE_OPENID_SIGNUP = false
 
 [oauth2]
-JWT_SECRET = <OTHER_TOKEN>
+JWT_SECRET = <GITEA_OAUTH2_SECRET>
 

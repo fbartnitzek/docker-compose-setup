@@ -11,3 +11,17 @@ setup to host multiple services with reverse proxy and lets encrypt in front, e.
 ## hints
 - when changing the servicename, you change the hostname of that container
     - so when changing db-service-names you have to configure another host in config-file in docker-volume (no service-concept in docker-compose)
+
+## usage
+- now using docker compose (v2) instead of docker-compose (v1)
+- copy .env.templates to .env and fill all values
+- generate file from each template via `./generate_files.sh`
+  - dry-run via `./generate_files.sh .diff`, produces diff-files
+  - check for errors
+  - real run without args
+
+```
+docker compose ps
+docker compose stop
+docker compose up -d
+```
