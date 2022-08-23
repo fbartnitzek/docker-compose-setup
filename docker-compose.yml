@@ -12,7 +12,7 @@ volumes:
 
 services:
   giteadb:
-    image: postgres:9.6.17
+    image: "postgres:${GITEA_DB_TAG}"
     restart: always
     env_file:
       - giteadb.env
@@ -24,7 +24,7 @@ services:
       - ./postgres:/var/lib/postgresql/data
 
   nextclouddb:
-    image: mariadb:10.4.12-bionic
+    image: "mariadb:${NEXTCLOUD_DB_TAG}"
     restart: always
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     env_file:
@@ -39,7 +39,7 @@ services:
       - mdb:/var/lib/mysql
 
   traefik:
-    image: traefik:v1.7.22
+    image: "traefik:${TRAEFIK_TAG}"
     command: --docker
     ports:
       - 80:80
@@ -47,7 +47,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.backend=dashboard"
-      - "traefik.frontend.rule=Host:traefik.<DOMAIN>"
+      - "traefik.frontend.rule=Host:traefik.${DOMAIN}"
       - "traefik.port=8080"
     networks:
       - publicnet
@@ -59,7 +59,7 @@ services:
     restart: always
 
   gitea:
-    image: gitea/gitea:1.12.0
+    image: "gitea/gitea:${GITEA_TAG}"
     environment:
       - USER_UID=1000
       - USER_GID=1000
@@ -73,7 +73,7 @@ services:
     labels:
       - "traefik.enabled=true"
       - "traefik.backend=gitea"
-      - "traefik.frontend.rule=Host:git.<DOMAIN>"
+      - "traefik.frontend.rule=Host:git.${DOMAIN}"
       - "traefik.docker.network=publicnet"
       - "traefik.port=3000"
     networks:
@@ -91,7 +91,7 @@ services:
     labels:
       - "traefik.enabled=true"
       - "traefik.backend=nextcloud"
-      - "traefik.frontend.rule=Host:cloud.<DOMAIN>"
+      - "traefik.frontend.rule=Host:cloud.${DOMAIN}"
       - "traefik.docker.network=publicnet"
       - "traefik.port=80"
     depends_on:
