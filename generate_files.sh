@@ -11,7 +11,7 @@ function generate_file() {
   fi
   cp $template_file $file
   for key in $keys; do
-    value=$(cat .env | grep "$key=" | sed -r "s/^$key=(.*)$/\1/")
+    value=$(cat .env | grep "$key=" | sed -r "s/^$key='?(.*)'?$/\1/")
     if [ -z "$value" ]; then
       echo "ERROR: no value given for $key - aborting"
       exit 1
