@@ -13,8 +13,9 @@ setup to host multiple services with reverse proxy and lets encrypt in front, e.
     - so when changing db-service-names you have to configure another host in config-file in docker-volume (no service-concept in docker-compose)
 
 ## usage
+- now using docker compose (v2) instead of docker-compose (v1)
 ```
-docker-compose ps
-docker-compose stop
-docker-compose up -d
+docker compose ps
+docker compose stop
+docker compose up -d
 ```
