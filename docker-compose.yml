@@ -11,33 +11,6 @@ volumes:
   mdb:
 
 services:
-  giteadb:
-    image: "postgres:${GITEA_DB_TAG}"
-    restart: always
-    env_file:
-      - giteadb.env
-    labels:
-      - "traefik.enable=false"
-    networks:
-      - internal
-    volumes:
-      - ./postgres:/var/lib/postgresql/data
-
-  nextclouddb:
-    image: "mariadb:${NEXTCLOUD_DB_TAG}"
-    restart: always
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
-    env_file:
-      - nextclouddb.env
-    ports:
-      - 3306:3306
-    labels:
-      - "traefik.enable=false"
-    networks:
-      - internal
-    volumes:
-      - mdb:/var/lib/mysql
-
   traefik:
     image: "traefik:${TRAEFIK_TAG}"
     command: --docker
@@ -57,6 +30,19 @@ services:
       - ./acme.json:/acme.json
     container_name: traefik
     restart: always
+
+
+  giteadb:
+    image: "postgres:${GITEA_DB_TAG}"
+    restart: always
+    env_file:
+      - giteadb.env
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - internal
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
 
   gitea:
     image: "gitea/gitea:${GITEA_TAG}"
@@ -82,6 +68,22 @@ services:
     depends_on:
       - giteadb
       - traefik
+
+
+  nextclouddb:
+    image: "mariadb:${NEXTCLOUD_DB_TAG}"
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    env_file:
+      - nextclouddb.env
+    ports:
+      - 3306:3306
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - internal
+    volumes:
+      - mdb:/var/lib/mysql
 
   nextcloud:
     build: Dockerfile_nextcloud
