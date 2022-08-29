@@ -35,7 +35,6 @@ else
   echo "normal mode, using no file-extension like '.diff'"
 fi
 
-generate_file Dockerfile_nextcloud/Dockerfile NEXTCLOUD_TAG
 #generate_file traefik.toml DOMAIN TRAEFIK_USER TRAEFIK_USER_TOKEN EMAIL
 generate_file traefik.yml TRAEFIK_USER TRAEFIK_USER_TOKEN EMAIL
 generate_file giteadb.env GITEA_DB_USER GITEA_DB_PASSWORD GITEA_DB_NAME

@@ -17,6 +17,4 @@ gitea/gitea/*
 gitea/gitea/conf/*
 !gitea/gitea/conf/app.ini.template
 
-Dockerfile_nextcloud/Dockerfile
-
 **/*.diff

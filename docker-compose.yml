@@ -12,7 +12,7 @@ volumes:
 
 services:
   traefik:
-    image: "traefik:${TRAEFIK_TAG}"
+    image: "traefik:v2.8.3"
     ports:
       - 80:80
       - 443:443
@@ -39,7 +39,7 @@ services:
 
 
   giteadb:
-    image: "postgres:${GITEA_DB_TAG}"
+    image: "postgres:9.6.17"
     restart: always
     env_file:
       - giteadb.env
@@ -51,7 +51,7 @@ services:
       - ./postgres:/var/lib/postgresql/data
 
   gitea:
-    image: "gitea/gitea:${GITEA_TAG}"
+    image: "gitea/gitea:1.12.0"
     environment:
       - USER_UID=1000
       - USER_GID=1000
@@ -81,7 +81,7 @@ services:
 
 
   nextclouddb:
-    image: "mariadb:${NEXTCLOUD_DB_TAG}"
+    image: "mariadb:10.4.12-bionic"
     restart: always
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     env_file:
