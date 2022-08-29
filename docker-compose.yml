@@ -13,12 +13,12 @@ volumes:
 services:
   traefik:
     image: "traefik:v2.8.3"
+    restart: always
     ports:
       - 80:80
       - 443:443
     labels:
       - "traefik.enable=true"
-      # dashboard
       - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.entrypoints=websecure"
@@ -26,10 +26,6 @@ services:
       - "traefik.http.middlewares.auth-traefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_USER_TOKEN}"
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.routers.traefik.tls.certresolver=le-resolver"
-#      - "traefik.http.routers.api.service=api@internal"
-#      - "traefik.backend=dashboard"
-#      - "traefik.frontend.rule=Host:traefik.${DOMAIN}"
-#      - "traefik.port=8080"
     networks:
       - publicnet
     volumes:
@@ -37,7 +33,6 @@ services:
       - ./traefik.yml:/etc/traefik/traefik.yml
       - ./acme.json:/acme.json
     container_name: traefik
-    restart: always
 
 
   giteadb:
@@ -73,9 +68,6 @@ services:
       - "traefik.http.routers.gitea.service=gitea-web-svc"
       - "traefik.http.services.gitea-web-svc.loadbalancer.server.port=3000"
       - "traefik.docker.network=publicnet"
-#      - "traefik.backend=gitea"
-#      - "traefik.frontend.rule=Host:git.${DOMAIN}"
-#      - "traefik.port=3000"
     networks:
       - internal
       - publicnet
@@ -111,9 +103,6 @@ services:
       - "traefik.http.routers.nextcloud.tls=true"
       - "traefik.http.routers.nextcloud.tls.certresolver=le-resolver"
       - "traefik.docker.network=publicnet"
-#      - "traefik.backend=nextcloud"
-#      - "traefik.frontend.rule=Host:cloud.${DOMAIN}"
-#      - "traefik.port=80"
     depends_on:
       - nextclouddb
       - traefik

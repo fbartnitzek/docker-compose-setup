@@ -20,9 +20,8 @@ providers:
 api:
   insecure: false
   dashboard: true
-
 log:
-  level: INFO
+  level: ERROR
 certificatesResolvers:
   le-resolver:
     acme:

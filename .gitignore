@@ -2,7 +2,6 @@ acme.json
 giteadb.env
 nextclouddb.env
 .env
-traefik.toml
 traefik.yml
 postgres/
 
