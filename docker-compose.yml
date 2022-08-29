@@ -19,7 +19,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
-      - "traefik.http.routers.traefik.entrypoints=dash"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.service=traefik-api-svc"
       - "traefik.http.services.traefik-api-svc.loadbalancer.server.port=8080"
       - "traefik.http.routers.traefik.middlewares=traefik-basic-auth"
