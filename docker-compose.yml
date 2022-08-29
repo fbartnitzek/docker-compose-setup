@@ -19,14 +19,21 @@ services:
       - 443:443
     labels:
       - "traefik.enable=true"
-      - "traefik.backend=dashboard"
-      - "traefik.frontend.rule=Host:traefik.${DOMAIN}"
-      - "traefik.port=8080"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
+      - "traefik.http.routers.traefik.entrypoints=dash"
+      - "traefik.http.routers.traefik.service=traefik-api-svc"
+      - "traefik.http.services.traefik-api-svc.loadbalancer.server.port=8080"
+      - "traefik.http.routers.traefik.middlewares=traefik-basic-auth"
+#      - "traefik.http.routers.api.service=api@internal"
+#      - "traefik.backend=dashboard"
+#      - "traefik.frontend.rule=Host:traefik.${DOMAIN}"
+#      - "traefik.port=8080"
     networks:
       - publicnet
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.toml:/traefik.toml
+#      - ./traefik.toml:/traefik.toml
+      - ./traefik.yml:/traefik.yml
       - ./acme.json:/acme.json
     container_name: traefik
     restart: always
@@ -58,10 +65,14 @@ services:
       - "22"
     labels:
       - "traefik.enabled=true"
-      - "traefik.backend=gitea"
-      - "traefik.frontend.rule=Host:git.${DOMAIN}"
+      - "traefik.http.routers.gitea.rule=Host(`git.${DOMAIN}`)"
+      - "traefik.http.routers.gitea.entrypoints=websecure"
+      - "traefik.http.routers.gitea.service=gitea-web-svc"
+      - "traefik.http.services.gitea-web-svc.loadbalancer.server.port=3000"
       - "traefik.docker.network=publicnet"
-      - "traefik.port=3000"
+#      - "traefik.backend=gitea"
+#      - "traefik.frontend.rule=Host:git.${DOMAIN}"
+#      - "traefik.port=3000"
     networks:
       - internal
       - publicnet
@@ -92,10 +103,12 @@ services:
       - 8080:80
     labels:
       - "traefik.enabled=true"
-      - "traefik.backend=nextcloud"
-      - "traefik.frontend.rule=Host:cloud.${DOMAIN}"
+      - "traefik.http.routers.nextcloud.rule=Host(`cloud.${DOMAIN}`)"
+      - "traefik.http.routers.nextcloud.entrypoints=websecure"
       - "traefik.docker.network=publicnet"
-      - "traefik.port=80"
+#      - "traefik.backend=nextcloud"
+#      - "traefik.frontend.rule=Host:cloud.${DOMAIN}"
+#      - "traefik.port=80"
     depends_on:
       - nextclouddb
       - traefik
