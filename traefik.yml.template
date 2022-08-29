@@ -24,7 +24,7 @@ api:
 log:
   level: INFO
 certificatesResolvers:
-  default:
+  le-resolver:
     acme:
       email: "<EMAIL>"
       storage: acme.json
