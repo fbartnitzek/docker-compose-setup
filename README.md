@@ -21,7 +21,10 @@ setup to host multiple services with reverse proxy and lets encrypt in front, e.
   - real run without args
 
 ```
-docker compose ps
 docker compose stop
+git pull
+./generate_files.sh
 docker compose up -d
+docker compose ps
+docker logs traefik
 ```

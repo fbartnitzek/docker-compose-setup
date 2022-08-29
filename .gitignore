@@ -2,7 +2,7 @@ acme.json
 giteadb.env
 nextclouddb.env
 .env
-traefik.toml
+traefik.yml
 postgres/
 
 !gitea/
@@ -15,7 +15,5 @@ gitea/gitea/*
 
 gitea/gitea/conf/*
 !gitea/gitea/conf/app.ini.template
-
-Dockerfile_nextcloud/Dockerfile
 
 **/*.diff
