@@ -13,7 +13,6 @@ volumes:
 services:
   traefik:
     image: "traefik:${TRAEFIK_TAG}"
-    command: --docker
     ports:
       - 80:80
       - 443:443
@@ -33,7 +32,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 #      - ./traefik.toml:/traefik.toml
-      - ./traefik.yml:/traefik.yml
+      - ./traefik.yml:/etc/traefik/traefik.yml
       - ./acme.json:/acme.json
     container_name: traefik
     restart: always
