@@ -18,10 +18,10 @@ services:
       - 443:443
     labels:
       - "traefik.enable=true"
+      # dashboard
       - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
+      - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.service=traefik-api-svc"
-      - "traefik.http.services.traefik-api-svc.loadbalancer.server.port=8080"
       - "traefik.http.routers.traefik.middlewares=traefik-basic-auth"
 #      - "traefik.http.routers.api.service=api@internal"
 #      - "traefik.backend=dashboard"
@@ -31,7 +31,6 @@ services:
       - publicnet
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-#      - ./traefik.toml:/traefik.toml
       - ./traefik.yml:/etc/traefik/traefik.yml
       - ./acme.json:/acme.json
     container_name: traefik
