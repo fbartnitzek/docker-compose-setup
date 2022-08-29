@@ -20,12 +20,7 @@ providers:
 api:
   insecure: false
   dashboard: true
-http:
-  middlewares:
-    traefik-basic-auth:
-      basicAuth:
-        users:
-          - "<TRAEFIK_USER>:<TRAEFIK_USER_TOKEN>"
+
 log:
   level: INFO
 certificatesResolvers:
