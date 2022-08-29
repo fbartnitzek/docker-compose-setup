@@ -63,7 +63,7 @@ services:
       - "3000"
       - "22"
     labels:
-      - "traefik.enabled=true"
+      - "traefik.enable=true"
       - "traefik.http.routers.gitea.rule=Host(`git.${DOMAIN}`)"
       - "traefik.http.routers.gitea.entrypoints=websecure"
       - "traefik.http.routers.gitea.service=gitea-web-svc"
@@ -101,7 +101,7 @@ services:
     ports:
       - 8080:80
     labels:
-      - "traefik.enabled=true"
+      - "traefik.enable=true"
       - "traefik.http.routers.nextcloud.rule=Host(`cloud.${DOMAIN}`)"
       - "traefik.http.routers.nextcloud.entrypoints=websecure"
       - "traefik.docker.network=publicnet"
