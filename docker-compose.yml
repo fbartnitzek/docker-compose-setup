@@ -46,7 +46,6 @@ services:
       - "traefik.enable=false"
     networks:
       - internal
-      - publicnet
     volumes:
       - ./postgres:/var/lib/postgresql/data
 
@@ -79,53 +78,6 @@ services:
     depends_on:
       - giteadb
       - traefik
-
-#  new-giteadb:
-#    image: "postgres:14.5"
-#    restart: always
-#    env_file:
-#      - giteadb.env
-#    labels:
-#      - "traefik.enable=false"
-#    networks:
-#      - internal
-#    volumes:
-#      - ./new-postgres:/var/lib/postgresql/data
-#
-#  new-gitea:
-#    image: "gitea/gitea:1.17.1"
-#    environment:
-#      - USER_UID=1000
-#      - USER_GID=1000
-#      - GITEA__database__DB_TYPE=postgres
-#      - "GITEA__database__HOST=${GITEA_DB_HOST}:5432"
-#      - "GITEA__database__NAME=${GITEA_DB_NAME}"
-#      - "GITEA__database__USER=${GITEA_DB_USER}"
-#      - "GITEA__database__PASSWD=${GITEA_DB_PASSWORD}"
-#    restart: always
-#    volumes:
-#      - ./new-gitea:/data
-#      - /opt/docker_compose/new-backup:/backup
-#      - /etc/timezone:/etc/timezone:ro
-#      - /etc/localtime:/etc/localtime:ro
-#    ports:
-#      - "3000"
-#      - "22"
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.new-gitea.rule=Host(`new-git.${DOMAIN}`)"
-#      - "traefik.http.routers.new-gitea.entrypoints=websecure"
-#      - "traefik.http.routers.new-gitea.tls=true"
-#      - "traefik.http.routers.new-gitea.tls.certresolver=le-resolver"
-#      - "traefik.http.routers.new-gitea.service=new-gitea-web-svc"
-#      - "traefik.http.services.new-gitea-web-svc.loadbalancer.server.port=3000"
-#      - "traefik.docker.network=publicnet"
-#    networks:
-#      - internal
-#      - publicnet
-#    depends_on:
-#      - new-giteadb
-#      - traefik
 
 
   nextclouddb:
