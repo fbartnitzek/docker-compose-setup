@@ -1,5 +1,5 @@
 # docker compose setup
-setup to host multiple services with reverse proxy and lets encrypt in front, e.g. with dyndns-provider
+setup to host multiple services with reverse proxy and let's encrypt in front, e.g. with dyndns-provider
 
 ## components
 - traefik
