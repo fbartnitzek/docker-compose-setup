@@ -28,3 +28,12 @@ docker compose up -d
 docker compose ps
 docker logs traefik
 ```
+
+## update gitea
+- use gitea backup procedure, stop both services and backup and remove db-folder
+- install fresh version of postgres
+- restore tables via dump
+```
+psql -U $GITEA_USER -d $GITEA_DB -p 5432 -h localhost < /opt/docker_compose/backup/dump/gitea-db.sql
+```
+- update gitea image and up
