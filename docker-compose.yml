@@ -41,7 +41,7 @@ services:
     env_file:
       - giteadb.env
     ports:
-      - "5432"
+      - "5432:5432"
     labels:
       - "traefik.enable=false"
     networks:
