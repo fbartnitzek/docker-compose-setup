@@ -3,7 +3,7 @@ giteadb.env
 nextclouddb.env
 .env
 traefik.yml
-postgres/
+gitea-postgres/
 
 !gitea/
 

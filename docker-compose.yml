@@ -47,7 +47,7 @@ services:
     networks:
       - internal
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./gitea-postgres:/var/lib/postgresql/data
 
   gitea:
     image: "gitea/gitea:1.17.1"
@@ -83,7 +83,6 @@ services:
     depends_on:
       - giteadb
       - traefik
-
 
   nextclouddb:
     image: "mariadb:10.4.12-bionic"
