@@ -29,11 +29,17 @@ docker compose ps
 docker logs traefik
 ```
 
-## update gitea
-- use gitea backup procedure, stop both services and backup and remove db-folder
-- install fresh version of postgres
-- restore tables via dump
-```
-psql -U $GITEA_USER -d $GITEA_DB -p 5432 -h localhost < /opt/docker_compose/backup/dump/gitea-db.sql
-```
-- update gitea image and up
+## restore gitea backup
+- see [restore](https://docs.gitea.io/en-us/backup-and-restore/#restore-command-restore) and use the period backups
+
+
+## gitea migration
+- breaking changes prevent a simple update and migrating tables isn't feasible for a single-user setup, so migrate via git
+- dump all git repos of the existing gitea installation via [backup-repos.sh](gitea_migration/backup-repos.sh)
+  - needs GITEA_HOST and GITEA_LOGIN env vars
+  - dumps all repos of the user in the current directory with 1 sub-dir per org
+- set up a fresh gitea instance with the current db 
+- restore your user and recreate the used organizations
+- restore all git repos via [restore-repos.sh](gitea_migration/restore-repos.sh)
+  - needs GITEA_HOST, GITEA_LOGIN and GITEA_USER env vars
+  - restores all repos in the current directory

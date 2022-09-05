@@ -47,13 +47,18 @@ services:
     networks:
       - internal
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./gitea-postgres:/var/lib/postgresql/data
 
   gitea:
     image: "gitea/gitea:1.17.1"
     environment:
       - USER_UID=1000
       - USER_GID=1000
+      - GITEA__database__DB_TYPE=postgres
+      - "GITEA__database__HOST=${GITEA_DB_HOST}:5432"
+      - "GITEA__database__NAME=${GITEA_DB_NAME}"
+      - "GITEA__database__USER=${GITEA_DB_USER}"
+      - "GITEA__database__PASSWD=${GITEA_DB_PASSWORD}"
     restart: always
     volumes:
       - ./gitea:/data
@@ -78,7 +83,6 @@ services:
     depends_on:
       - giteadb
       - traefik
-
 
   nextclouddb:
     image: "mariadb:10.4.12-bionic"
